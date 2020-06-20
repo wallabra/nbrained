@@ -22,6 +22,13 @@ It is a very simple proof-of-concept. A Brain consists of three items:
 
 It also has a change map, which we are about to see.
 
+A 'tick' here can correspond to either an unit of a broader simulation's
+time, or several such units (for example, more desirable for most games,
+except perhaps kung fu. To be fair, Lo Wang is more god than man, and
+even a real-time AI would have no )
+
+### 
+
 Each Brain is supposed to be simulated continuously, i.e. over time. That
 makes it easier to integrate it with games and other simulation software
 for the which this property is of praticular interest. It does, however, use
@@ -49,7 +56,11 @@ the neuron array at their respective coordinates, and the change map is emptied.
 ## Learning
 
 The learning is a dynamic and rather stochastic process. It is a genetic evolution
-algorithm. Every brain has a list of genes, which describe how it was built. Each
+algorithm.
+
+### Genes
+
+Every brain has a list of genes, which describe how it was built. Each
 gene is an operation, that either
 
  * slightly changes a dendrite's weight (also the most common mutation),
@@ -62,6 +73,8 @@ Note that genes only affect the arrangement of dendrites.
 
 A brain's mutation is simply a clone with an extra gene to the end of said list.
 Thus, in a way, the gene list is like an evolutionary log.
+
+### Unsupervised Training
 
 The learning algorithm simply makes several (usually dozens of) clones of a 'model
 brain' (with no dendrites), putting them in a set. Its gene list is empty.
@@ -77,3 +90,11 @@ are slight weight 'adjustments'.
 
 After a few epochs, the fittest brain is selected, and returned. All others are
 deallocated/forgotten/killed-in-action. You better start digging the graves already!
+
+## Decoupling
+
+It is also being considered to separate the neurons from the dendrites. Fret not,
+we aren't putting brain matter into a blender! But sometimes it is useful to be able
+to evolve the same set of dendrites, but have each entity operate its own separate
+array of neurons, to be able to handle different scenarios than its otherwise equally
+'intelligent' brethren.
