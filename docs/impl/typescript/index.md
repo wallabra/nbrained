@@ -11,9 +11,8 @@ successful, that is!
 
 ## Navigation
 
-This is but a work in progress at the moment.
-
-To be fair, though, how many API docs do you want from a
-prototype implementation that isn't even finished itself? Might
-as well write an entire encyclopaedia on every single token
-the lexer spews at your face!
+The proper index to the TypeScript prototype's API docs
+can be found at [api/index.html](api/index.html). Please
+refer to that to navigate through the API documentations!
+_Warning: there will be no top link back to the top-level
+index.md! Humanity is doomed!_

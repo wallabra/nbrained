@@ -1,6 +1,7 @@
 # E1M1: General Documentation
 
-**[Return to Top](../index.md)**
+- **[Return to Top](../index.md)**
+- [**Next:** _Technical Documentation Index_](../tech/index.md)
 
 This branch of documentation is concerned with the most theoretical
 aspects of nbrained. If you lurk around long enough, you may even

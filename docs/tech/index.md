@@ -1,6 +1,8 @@
 # E2M1: Technical Documentation
 
-**[Return to Top](../index.md)**
+- **[Return to Top](../index.md)**
+- [**Previous:** _General Documentation Index_](../general/index.md)
+- [**Next:** _API Documentation Index_](../impl/index.md)
 
 This supersection of documentation is concerned with the most practical,
 yet general, aspects of the theory behind nbrained. If you like arrays,
