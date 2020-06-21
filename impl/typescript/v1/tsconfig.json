@@ -4,7 +4,10 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "sourceMap": true
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "sourceMap": true,
+        "target": "ES2015"
     },
     "include": [
         "src/**/*"
