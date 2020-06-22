@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DendriteSet = exports.Random = exports.Dendrite = exports.CoordXY = exports.NeuronBoard = void 0;
+exports.DendriteMesh = exports.Random = exports.Dendrite = exports.CoordXY = exports.NeuronBoard = void 0;
 const Genetics = require("./genetics");
 class NeuronBoard {
     constructor(width, height) {
         this.width = width;
         this.height = height;
         let area = this.area = width * height;
-        this.neurons = Array.from({ length: area }, () => 0);
+        this.neurons = [];
     }
     index(x, y) {
         return y * this.width + x;
@@ -18,11 +18,22 @@ class NeuronBoard {
     }
     get(x, y) {
         let i = this.index(x, y);
+        if (!this.neurons[i])
+            return this.neurons[i] = 0;
         return this.neurons[i];
+    }
+    amplifyAll(much) {
+        this.neurons.forEach((v, i) => {
+            if (v)
+                this.neurons[i] *= much;
+        });
     }
     add(x, y, val) {
         let i = this.index(x, y);
-        this.neurons[i] += val;
+        if (!this.neurons[i])
+            this.neurons[i] = val;
+        else
+            this.neurons[i] = this.neurons[i] + val;
     }
     clampCoords(coords) {
         if (coords.x < 0)
@@ -65,11 +76,13 @@ class ChangeBuffer {
         if (ch)
             ch.val += val;
         else
-            this.changes.set(key, { pos: { x: x, y: y }, val: val });
+            ch = this.changes.set(key, { pos: { x: x, y: y }, val: val }).get(key);
     }
     commit(to) {
-        this.changes.forEach((val) => {
-            to.add(val.pos.x, val.pos.y, val.val);
+        this.changes.forEach((ch) => {
+            if (ch.val) {
+                to.add(ch.pos.x, ch.pos.y, ch.val);
+            }
         });
     }
 }
@@ -78,10 +91,17 @@ class Dendrite {
         this.id = id;
         this.source = source;
         this.dest = dest;
-        this.weight = (weight != null) ? weight : Math.random();
+        this.weight = weight;
+        if (this.weight == null)
+            this.weight = Random.weight();
     }
     compute(neurons, changes, power) {
-        changes.add(this.dest.x, this.dest.y, neurons.get(this.source.x, this.source.y) * power * this.weight);
+        let val = neurons.get(this.source.x, this.source.y);
+        if (val && !isNaN(val))
+            changes.add(this.dest.x, this.dest.y, val * power * this.weight);
+    }
+    clone() {
+        return new Dendrite(this.id, this.source, this.dest, this.weight);
     }
 }
 exports.Dendrite = Dendrite;
@@ -95,7 +115,7 @@ var Random;
     }
     Random.posOffset = posOffset;
     function id(size) {
-        return Array({ length: size || 12 }, () => {
+        return Array.from({ length: size || 12 }, () => {
             let s = Math.floor(Math.random() * 256).toString(16);
             while (s.length < 2)
                 s = '0' + s;
@@ -104,15 +124,15 @@ var Random;
     }
     Random.id = id;
     function weight() {
-        return Math.pow(Math.random() * 1.5 - 0.5, 1.5);
+        return Math.random() * 1.5 - 0.5;
     }
     Random.weight = weight;
     function weightOffset() {
-        return Math.pow(Math.random() * 1.5 - 0.75, 2.5);
+        return Math.random() * 1.5 - 0.75;
     }
     Random.weightOffset = weightOffset;
 })(Random = exports.Random || (exports.Random = {}));
-class DendriteSet {
+class DendriteMesh {
     constructor(minWidth, minHeight) {
         this.minWidth = minWidth;
         this.minHeight = minHeight;
@@ -120,19 +140,21 @@ class DendriteSet {
         this.origin = null;
     }
     derive() {
-        let res = new DendriteSet(this.minWidth, this.minHeight);
+        let res = new DendriteMesh(this.minWidth, this.minHeight);
         if (!this.origin)
             res.origin = { from: this, genes: [] };
         else
             res.origin = { from: this.origin.from, genes: Array.from(this.origin.genes) };
-        res.dendrites = new Map(this.dendrites);
+        this.dendrites.forEach((dend, key) => {
+            res.dendrites.set(key, dend.clone());
+        });
         return res;
     }
     mutate(genes) {
         let res = this.derive();
         genes.forEach((gene, ind) => {
             if (!Genetics.apply(gene, res))
-                throw new Error(`Dendrite set incompatible with ${gene.type} gene in index #${ind} of list passed to DendriteSet.mutate`);
+                throw new Error(`Dendrite mesh incompatible with <${gene.type}> gene in index #${ind} of list passed to DendriteSet.mutate`);
         });
         return res;
     }
@@ -167,7 +189,7 @@ class DendriteSet {
     }
     compute(neurons, power) {
         if (neurons.width < this.minWidth || neurons.height < this.minHeight)
-            throw new Error(`Neuron board passed too small for this dendrite set, in at least one dimension; expected at least ${this.minWidth}x${this.minHeight}, got ${neurons.width}x${neurons.height}`);
+            throw new Error(`Neuron board passed too small for this dendrite mesh, in at least one dimension; expected at least ${this.minWidth}x${this.minHeight}, got ${neurons.width}x${neurons.height}`);
         let changes = new ChangeBuffer();
         this.dendrites.forEach((dend) => {
             dend.compute(neurons, changes, power);
@@ -175,5 +197,5 @@ class DendriteSet {
         changes.commit(neurons);
     }
 }
-exports.DendriteSet = DendriteSet;
+exports.DendriteMesh = DendriteMesh;
 //# sourceMappingURL=common.js.map

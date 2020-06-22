@@ -17,14 +17,29 @@ function apply(gene, target) {
     return exports.GeneTypes.get(gene.type).born(gene.data, target);
 }
 exports.apply = apply;
+function assert(bool, desc) {
+    if (!bool)
+        throw new Error("Assertion failed: " + desc);
+}
 function random(brain, type) {
-    if (!type)
-        type = Array.from(exports.GeneTypes.keys())[Math.floor(exports.GeneTypes.size * Math.random())];
-    let gtype = exports.GeneTypes.get(type);
-    let gdata = gtype.rand(brain);
+    let gdata = null;
+    let gtype = null;
+    let origTries;
+    let tries = origTries = 50;
+    let newType = type;
+    while (gdata == null) {
+        if (tries-- <= 0) {
+            throw new Error(`Random gene generation failed ${origTries} times! Aborting.`);
+        }
+        if (!type)
+            newType = Array.from(exports.GeneTypes.keys())[Math.floor(exports.GeneTypes.size * Math.random())];
+        gtype = exports.GeneTypes.get(newType);
+        gdata = gtype.rand(brain);
+    }
+    assert(gtype != null, 'gtype != null');
     return {
         data: gdata,
-        type: type
+        type: newType
     };
 }
 exports.random = random;
@@ -35,6 +50,8 @@ makeType('weight', (data, brain) => {
     return true;
 }, (brain) => {
     let dend = Array.from(brain.dendrites.keys())[Math.floor(brain.dendrites.size * Math.random())];
+    if (!dend)
+        return null;
     return {
         which: dend,
         weight: Common.Random.weightOffset()
@@ -46,7 +63,9 @@ makeType('new', (data, brain) => {
     brain.makeDendrite(data.source, data.dest, data.weight, data.id);
     return true;
 }, (brain) => {
-    let id = Common.Random.id(20);
+    let id;
+    while (!id || brain.dendrites.has(id))
+        id = Common.Random.id(20);
     return {
         id: id,
         source: brain.randomCoords(),
@@ -55,12 +74,14 @@ makeType('new', (data, brain) => {
     };
 });
 makeType('delete', (data, brain) => {
-    if (!brain.dendrites.has(data.id))
+    if (!brain.dendrites.has(data.which))
         return false;
     brain.removeDendrite(data.which);
     return true;
 }, (brain) => {
     let dend = Array.from(brain.dendrites.keys())[Math.floor(brain.dendrites.size * Math.random())];
+    if (!dend)
+        return null;
     return {
         which: dend
     };
@@ -81,6 +102,8 @@ makeType('split', (data, brain) => {
     return true;
 }, (brain) => {
     let dend = Array.from(brain.dendrites.keys())[Math.floor(brain.dendrites.size * Math.random())];
+    if (!dend)
+        return null;
     return {
         id: dend,
         middle: brain.randomCoords(),
@@ -103,6 +126,8 @@ makeType('shift', (data, brain) => {
     return true;
 }, (brain) => {
     let dend = Array.from(brain.dendrites.keys())[Math.floor(brain.dendrites.size * Math.random())];
+    if (!dend)
+        return null;
     return {
         id: dend,
         offset: Common.Random.posOffset(3),

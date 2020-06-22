@@ -22,7 +22,9 @@ class Entity {
         this.score += amount;
         this.brain.reward(amount);
     }
-    tick(dendrites, brain, power) {
+    tick(dendrites, brain, power, fade) {
+        if (fade)
+            this.neurons.amplifyAll(Math.pow(fade, power));
         dendrites.compute(this.neurons, power);
         this.callbacks.tick(this, power, brain);
     }
@@ -55,11 +57,11 @@ class Brain {
     reward(amount) {
         this.score += amount;
     }
-    tick(dendrites, power) {
+    tick(dendrites, power, fade) {
         if (!power)
             power = 1.0;
         this.entities.forEach((ent) => {
-            ent.tick(dendrites, this, power);
+            ent.tick(dendrites, this, power, fade);
         });
     }
     registerEntity(initializer) {
@@ -119,10 +121,16 @@ exports.Brain = Brain;
                 this.from.y = sw;
             }
         }
+        warnClamp(which, compat, coord) {
+            let { x: ox, y: oy } = coord;
+            let cnew = Common.CoordXY.clamp(compat, coord);
+            if (cnew.x != ox || cnew.y != oy)
+                console.warn(`Clamped ${which} coordinates from ${ox},${oy} to ${cnew.x},${cnew.y}`);
+        }
         fixBounds(compat) {
             if (compat) {
-                Common.CoordXY.clamp(compat, this.from);
-                Common.CoordXY.clamp(compat, this.to);
+                this.warnClamp('from', compat, this.from);
+                this.warnClamp('to', compat, this.to);
             }
             this.fixBoundsX();
             this.fixBoundsY();

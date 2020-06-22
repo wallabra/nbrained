@@ -16,4 +16,4 @@
 echo '++ Everything works! Watching changes for building.'
 
 ( cd ../../../ && mkdocs serve -a ':::8767' ) 2>&1 | awk '{ print "[SERVE.MKDOCS]", $0 }' &
-npx watch "npx tsc ./scripts/build.sh && npx typedoc --out ../../../docs/impl/typescript/api" src --wait 6 -u 2>&1 | awk '{ print "[BUILD]", $0 }' &
+npx watch "./scripts/build.sh && npx typedoc --out ../../../docs/impl/typescript/api" src --wait 6 -u 2>&1 | awk '{ print "[BUILD]", $0 }' &
