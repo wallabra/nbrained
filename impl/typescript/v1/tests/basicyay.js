@@ -1,4 +1,4 @@
-const nbrained = require('.')
+const nbrained = require('..')
 
 let brain = new nbrained.Environment.Brain({ x: 25, y: 8 })
 
@@ -26,6 +26,7 @@ for (let i = 0; i < 7000; i++) {
 console.log('Result has', dendrites.dendrites.size, 'dendrites.')
 
 function doATick(i, power) {
+    console.clear();
     console.log(`[Tick #${i}]`)
 
     entity.set(brain, 'input', [-2, Math.random(), 1, Math.random(), 1, 1, -Math.random(), 2, -1])

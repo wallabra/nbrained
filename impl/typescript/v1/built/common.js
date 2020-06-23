@@ -127,7 +127,7 @@ class Dendrite {
     }
     compute(neurons, changes, power) {
         let val = neurons.get(this.source.x, this.source.y);
-        if (val && !isNaN(val))
+        if (!isNaN(val) && val > 0)
             changes.add(this.dest.x, this.dest.y, val * power * this.weight);
     }
     clone() {
