@@ -113,6 +113,7 @@ makeType('new',
     }
 );
 
+/*
 makeType('delete',
     (data: Data, brain: Common.DendriteMesh) => {
         if (!brain.dendrites.has(data.which))
@@ -131,7 +132,7 @@ makeType('delete',
         };
     }
 );
-
+*/
 
 makeType('split',
     (data: Data, brain: Common.DendriteMesh) => {

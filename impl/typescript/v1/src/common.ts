@@ -57,6 +57,48 @@ export class NeuronBoard {
 
         return coords;
     }
+
+    matrixLines(chars: string = '_,. \'^+') {
+        let targMax = chars.length - 1;
+
+        if (this.neurons.length === 0) return []; // uninitialized... dangerous!
+
+        let srcMax = this.neurons.reduce((a, b) => Math.max(a, b), -Infinity);
+        let srcMin = this.neurons.reduce((a, b) => Math.min(a, b), +Infinity);
+        let srcSiz = srcMax - srcMin;
+
+        let srcMaxPos = Math.max(0, srcMax);
+        let srcMinPos = Math.max(0, srcMin);
+        let srcSizPos = srcMaxPos - srcMinPos;
+
+        let srcMaxNeg = Math.min(0, srcMax);
+        let srcMinNeg = Math.min(0, srcMin);
+        let srcSizNeg = srcMaxNeg - srcMinNeg;
+
+        let lines = [];
+
+        for (let y = 0; y < this.height; y++) {
+            let l = '';
+
+            for (let x = 0; x < this.width; x++) {
+                let power = this.get(x, y);
+                let targ;
+
+                if (power >= 0)
+                    targ = Math.round(targMax / 2 + targMax / 2 * (power - srcMinPos) / srcSizPos);
+
+                else
+                    targ = Math.round(targMax / 2 * (power - srcMinNeg) / srcSizNeg);
+
+                l += chars[targ];
+            }
+
+            lines.push(l);
+            l = '';
+        }
+
+        return lines;
+    }
 }
 
 export interface CoordXY {
