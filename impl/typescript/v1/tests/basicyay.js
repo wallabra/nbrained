@@ -18,7 +18,7 @@ let yayLobe = brain.lobeMakeSized('yay', { x: 8, y: 2 }, { x: 1, y: 4 })
 
 let dendrites = new nbrained.Common.DendriteMesh(25, 8)
 
-for (let i = 0; i < 7000; i++) {
+for (let i = 0; i < 4000; i++) {
     let gene = nbrained.Genetics.random(dendrites)
     
     //console.log(`Added gene: ${gene.type} ${JSON.stringify(gene.data)}`)
