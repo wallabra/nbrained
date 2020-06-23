@@ -73,19 +73,6 @@ makeType('new', (data, brain) => {
         weight: Common.Random.weight()
     };
 });
-makeType('delete', (data, brain) => {
-    if (!brain.dendrites.has(data.which))
-        return false;
-    brain.removeDendrite(data.which);
-    return true;
-}, (brain) => {
-    let dend = Array.from(brain.dendrites.keys())[Math.floor(brain.dendrites.size * Math.random())];
-    if (!dend)
-        return null;
-    return {
-        which: dend
-    };
-});
 makeType('split', (data, brain) => {
     if (!brain.dendrites.has(data.id))
         return false;
