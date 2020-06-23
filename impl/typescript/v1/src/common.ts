@@ -19,9 +19,6 @@ export class NeuronBoard {
         let i = this.index(x, y);
 
         this.neurons[i] = val;
-
-        if (this.neurons[i] < 0)
-            this.neurons[i] = 0;
     }
 
     get(x: number, y: number) {
@@ -46,9 +43,6 @@ export class NeuronBoard {
 
         else
             this.neurons[i] = this.neurons[i] + val;
-
-        if (this.neurons[i] < 0)
-            this.neurons[i] = 0;
     }
 
     clampCoords(coords: CoordXY) {
