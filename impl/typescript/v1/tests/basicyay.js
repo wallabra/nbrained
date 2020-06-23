@@ -43,7 +43,7 @@ function doATick(i, power) {
     console.log('+=====\n' + mat.join('\n') + '\n+=====\n')
 }
 
-intv = 0.05;
+intv = 0.08;
 
 for (let i = 1; i <= 500; i++)
     setTimeout(() => doATick(i, intv), intv * 1000 * i)
