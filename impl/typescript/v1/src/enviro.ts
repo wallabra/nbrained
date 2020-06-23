@@ -85,9 +85,8 @@ export class Brain {
         });
     }
     
-    async registerEntity(initializer: Entity.Initializer): Promise<Entity> {
-        let neurons = new Common.NeuronBoard(this.size.x, this.size.y)
-        let callbacks = await initializer();
+    makeEntity(callbacks: Entity.Callbacks): Entity {
+        let neurons = new Common.NeuronBoard(this.size.x, this.size.y);
 
         let entity = new Entity(callbacks, this);
         this.entities.add(entity);

@@ -1,23 +1,18 @@
 const nbrained = require('.')
 
 let brain = new nbrained.Environment.Brain({ x: 25, y: 8 })
-let entity
 
-let prom = brain.registerEntity(async () => {
-    return {
-        tick: (entity, power, brain) => {
-            entity.set(brain, 'input', [-1, 1, 1, 1, 1, 1, -1, 1, 1])
-            let yay = entity.get(brain, 'yay').reduce((a, b) => a + b, 0)
-            console.log('Yay value:', yay)
-            entity.reward(yay)
-        }
+let entity = brain.makeEntity({
+    tick: (entity, power, brain) => {
+        entity.set(brain, 'input', [-1, 1, 1, 1, 1, 1, -1, 1, 1])
+        let yay = entity.get(brain, 'yay').reduce((a, b) => a + b, 0)
+        console.log('Yay value:', yay)
+        entity.reward(yay)
     }
-}).then((e) => {
-    entity = e
-
-    let inputLobe = brain.lobeMakeSized('input', { x: 1, y: 2 }, { x: 3, y: 3 })
-    let yayLobe = brain.lobeMakeSized('yay', { x: 8, y: 2 }, { x: 1, y: 4 })
 })
+
+let inputLobe = brain.lobeMakeSized('input', { x: 1, y: 2 }, { x: 3, y: 3 })
+let yayLobe = brain.lobeMakeSized('yay', { x: 8, y: 2 }, { x: 1, y: 4 })
 
 let dendrites = new nbrained.Common.DendriteMesh(25, 8)
 
