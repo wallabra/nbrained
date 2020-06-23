@@ -18,11 +18,11 @@ export class Entity {
     }
     
     tick(dendrites: Common.DendriteMesh, brain: Brain, power: number, fade?: number) {
-        if (fade)
-            this.neurons.amplifyAll(Math.pow(fade, power));
-
         dendrites.compute(this.neurons, power);
         this.callbacks.tick(this, power, brain);
+
+        if (fade)
+            this.neurons.amplifyAll(Math.pow(fade, power));
     }
 
     lobeGet(brain: Brain, name: string): Brain.Lobe.Reference {

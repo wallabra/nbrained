@@ -14,10 +14,10 @@ class Entity {
         this.brain.reward(amount);
     }
     tick(dendrites, brain, power, fade) {
-        if (fade)
-            this.neurons.amplifyAll(Math.pow(fade, power));
         dendrites.compute(this.neurons, power);
         this.callbacks.tick(this, power, brain);
+        if (fade)
+            this.neurons.amplifyAll(Math.pow(fade, power));
     }
     lobeGet(brain, name) {
         if (!brain.lobes.has(name))

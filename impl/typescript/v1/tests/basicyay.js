@@ -12,6 +12,8 @@ let entity = brain.makeEntity({
 })
 
 let inputLobe = brain.lobeMakeSized('input', { x: 1, y: 2 }, { x: 3, y: 3 })
+let yesLobe = brain.lobeMakeSized('yes', { x: 0, y: 5 }, { x: 2, y: 3 })
+
 let yayLobe = brain.lobeMakeSized('yay', { x: 8, y: 2 }, { x: 1, y: 4 })
 
 let dendrites = new nbrained.Common.DendriteMesh(25, 8)
@@ -29,7 +31,9 @@ function doATick(i, power) {
     console.clear();
     console.log(`[Tick #${i}]`)
 
-    entity.set(brain, 'input', [-2, Math.random(), 1, Math.random(), 1, 1, -Math.random(), 2, -1])
+    inputLobe.set(entity.neurons, [2, Math.random(), 1, Math.random(), 1, 1, Math.random(), 2, 1])
+    yesLobe.set(entity.neurons, [ 1, 1, 1, 1, 1, 1 ])
+
     brain.tick(dendrites, power, 0.9)
 
     console.log('Score:', entity.score)
@@ -39,7 +43,7 @@ function doATick(i, power) {
     console.log('+=====\n' + mat.join('\n') + '\n+=====\n')
 }
 
-intv = 0.15;
+intv = 0.05;
 
 for (let i = 1; i <= 500; i++)
     setTimeout(() => doATick(i, intv), intv * 1000 * i)
