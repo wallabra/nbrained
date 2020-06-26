@@ -8,13 +8,26 @@ export class Entity {
     public score: number = 0;
 
 
-    constructor(private callbacks: Entity.Callbacks, public brain: Brain, neurons?: Common.NeuronBoard) {
+    constructor(public brain: Brain, private callbacks?: Entity.Callbacks, neurons?: Common.NeuronBoard) {
         this.neurons = neurons || new Common.NeuronBoard(brain.size.x, brain.size.y);
+        this.callbacks = this.callbacks || Entity.noop;
+    }
+
+    setCallbacks(callbacks: Entity.Callbacks) {
+        Object.assign(this.callbacks, callbacks);
+    }
+
+    cloneInto(brain: Brain, callbacks?: Entity.Callbacks) {
+        return new Entity(brain, callbacks || this.callbacks, this.neurons.clone());
     }
 
     reward(amount: number) {
         this.score += amount;
         this.brain.reward(amount);
+    }
+
+    resetScore() {
+        this.score = 0;
     }
     
     tick(dendrites: Common.DendriteMesh, brain: Brain, power: number, fade?: number) {
@@ -51,6 +64,10 @@ export class Entity {
 }
 
 export namespace Entity {
+    export const noop: Callbacks = {
+        tick: function() {}
+    };
+
     export interface Callbacks {
         tick: (entity: Entity, power: number, brain: Brain) => void;
     }
@@ -73,6 +90,28 @@ export class Brain {
         // property initializing constructor
     }
 
+    resetScore() {
+        this.score = 0;
+
+        this.entities.forEach((ent) => {
+            ent.resetScore();
+        });
+    }
+
+    clone(callbacks?: Entity.Callbacks) {
+        let res = new Brain(this.size);
+
+        this.entities.forEach((ent) => {
+            res.add(ent.cloneInto(res, callbacks));
+        });
+
+        return res;
+    }
+
+    forEach(callback: (entity: Entity) => void) {
+        this.entities.forEach((e) => callback(e));
+    }
+
     reward(amount: number) {
         this.score += amount;
     }
@@ -88,9 +127,12 @@ export class Brain {
     makeEntity(callbacks: Entity.Callbacks): Entity {
         let neurons = new Common.NeuronBoard(this.size.x, this.size.y);
 
-        let entity = new Entity(callbacks, this);
-        this.entities.add(entity);
+        let entity = new Entity(this, callbacks);
+        return this.add(entity);
+    }
 
+    add(entity: Entity): Entity {
+        this.entities.add(entity);
         return entity;
     }
 

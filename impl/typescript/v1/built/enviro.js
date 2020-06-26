@@ -1,17 +1,46 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Brain = exports.Entity = void 0;
-const Common = require("./common");
+const Common = __importStar(require("./common"));
 class Entity {
-    constructor(callbacks, brain, neurons) {
-        this.callbacks = callbacks;
+    constructor(brain, callbacks, neurons) {
         this.brain = brain;
+        this.callbacks = callbacks;
         this.score = 0;
         this.neurons = neurons || new Common.NeuronBoard(brain.size.x, brain.size.y);
+        this.callbacks = this.callbacks || Entity.noop;
+    }
+    setCallbacks(callbacks) {
+        Object.assign(this.callbacks, callbacks);
+    }
+    cloneInto(brain, callbacks) {
+        return new Entity(brain, callbacks || this.callbacks, this.neurons.clone());
     }
     reward(amount) {
         this.score += amount;
         this.brain.reward(amount);
+    }
+    resetScore() {
+        this.score = 0;
     }
     tick(dendrites, brain, power, fade) {
         dendrites.compute(this.neurons, power);
@@ -38,12 +67,33 @@ class Entity {
     }
 }
 exports.Entity = Entity;
+(function (Entity) {
+    Entity.noop = {
+        tick: function () { }
+    };
+})(Entity = exports.Entity || (exports.Entity = {}));
 class Brain {
     constructor(size) {
         this.size = size;
         this.entities = new Set();
         this.lobes = new Map();
         this.score = 0;
+    }
+    resetScore() {
+        this.score = 0;
+        this.entities.forEach((ent) => {
+            ent.resetScore();
+        });
+    }
+    clone(callbacks) {
+        let res = new Brain(this.size);
+        this.entities.forEach((ent) => {
+            res.add(ent.cloneInto(res, callbacks));
+        });
+        return res;
+    }
+    forEach(callback) {
+        this.entities.forEach((e) => callback(e));
     }
     reward(amount) {
         this.score += amount;
@@ -57,7 +107,10 @@ class Brain {
     }
     makeEntity(callbacks) {
         let neurons = new Common.NeuronBoard(this.size.x, this.size.y);
-        let entity = new Entity(callbacks, this);
+        let entity = new Entity(this, callbacks);
+        return this.add(entity);
+    }
+    add(entity) {
         this.entities.add(entity);
         return entity;
     }

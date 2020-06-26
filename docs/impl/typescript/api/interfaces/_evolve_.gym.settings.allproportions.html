@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Gene | nbrained-proto</title>
+	<title>AllProportions | nbrained-proto</title>
 	<meta name="description" content="Documentation for nbrained-proto">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,19 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_genetics_.html">&quot;genetics&quot;</a>
+					<a href="../modules/_evolve_.html">&quot;evolve&quot;</a>
 				</li>
 				<li>
-					<a href="_genetics_.gene.html">Gene</a>
+					<a href="../classes/_evolve_.gym.html">Gym</a>
+				</li>
+				<li>
+					<a href="../modules/_evolve_.gym.settings.html">Settings</a>
+				</li>
+				<li>
+					<a href="_evolve_.gym.settings.allproportions.html">AllProportions</a>
 				</li>
 			</ul>
-			<h1>Interface Gene</h1>
+			<h1>Interface AllProportions</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +79,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Gene</span>
+						<span class="target">AllProportions</span>
 					</li>
 				</ul>
 			</section>
@@ -84,8 +90,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_genetics_.gene.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_genetics_.gene.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_evolve_.gym.settings.allproportions.html#breeders" class="tsd-kind-icon">breeders</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_evolve_.gym.settings.allproportions.html#mortality" class="tsd-kind-icon">mortality</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_evolve_.gym.settings.allproportions.html#savagery" class="tsd-kind-icon">savagery</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_evolve_.gym.settings.allproportions.html#sick" class="tsd-kind-icon">sick</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,22 +102,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="data" class="tsd-anchor"></a>
-					<h3>data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../modules/_genetics_.html#data" class="tsd-signature-type">Data</a></div>
+					<a name="breeders" class="tsd-anchor"></a>
+					<h3>breeders</h3>
+					<div class="tsd-signature tsd-kind-icon">breeders<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/genetics.ts#L17">genetics.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/evolve.ts#L198">evolve.ts:198</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="mortality" class="tsd-anchor"></a>
+					<h3>mortality</h3>
+					<div class="tsd-signature tsd-kind-icon">mortality<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/genetics.ts#L18">genetics.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/evolve.ts#L199">evolve.ts:199</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="savagery" class="tsd-anchor"></a>
+					<h3>savagery</h3>
+					<div class="tsd-signature tsd-kind-icon">savagery<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/evolve.ts#L201">evolve.ts:201</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="sick" class="tsd-anchor"></a>
+					<h3>sick</h3>
+					<div class="tsd-signature tsd-kind-icon">sick<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/evolve.ts#L200">evolve.ts:200</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -121,66 +149,42 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_common_.html">&quot;common&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_enviro_.html">&quot;enviro&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_evolve_.html">&quot;evolve&quot;</a>
-					</li>
-					<li class="current tsd-kind-module">
-						<a href="../modules/_genetics_.html">&quot;genetics&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_index_.html">&quot;index&quot;</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_genetics_.gene.html" class="tsd-kind-icon">Gene</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-namespace">
+						<a href="_evolve_.gym.settings.allproportions.html" class="tsd-kind-icon">All<wbr>Proportions</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_genetics_.gene.html#data" class="tsd-kind-icon">data</a>
+								<a href="_evolve_.gym.settings.allproportions.html#breeders" class="tsd-kind-icon">breeders</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_genetics_.gene.html#type" class="tsd-kind-icon">type</a>
+								<a href="_evolve_.gym.settings.allproportions.html#mortality" class="tsd-kind-icon">mortality</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_evolve_.gym.settings.allproportions.html#savagery" class="tsd-kind-icon">savagery</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_evolve_.gym.settings.allproportions.html#sick" class="tsd-kind-icon">sick</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_genetics_.type.html" class="tsd-kind-icon">Type</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-namespace">
+						<a href="_evolve_.gym.settings.mutateproportions.html" class="tsd-kind-icon">Mutate<wbr>Proportions</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_genetics_.html#data" class="tsd-kind-icon">Data</a>
+					<li class=" tsd-kind-property tsd-parent-kind-namespace">
+						<a href="../modules/_evolve_.gym.settings.html#bootstrap" class="tsd-kind-icon">bootstrap</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_genetics_.html#fnborn" class="tsd-kind-icon">Fn<wbr>Born</a>
+					<li class=" tsd-kind-property tsd-parent-kind-namespace">
+						<a href="../modules/_evolve_.gym.settings.html#mutateamount" class="tsd-kind-icon">mutate<wbr>Amount</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_genetics_.html#fnrand" class="tsd-kind-icon">Fn<wbr>Rand</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="../modules/_genetics_.html#genetypes" class="tsd-kind-icon">Gene<wbr>Types</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_genetics_.html#apply" class="tsd-kind-icon">apply</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_genetics_.html#assert" class="tsd-kind-icon">assert</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_genetics_.html#maketype" class="tsd-kind-icon">make<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_genetics_.html#random" class="tsd-kind-icon">random</a>
+					<li class=" tsd-kind-property tsd-parent-kind-namespace">
+						<a href="../modules/_evolve_.gym.settings.html#ratios" class="tsd-kind-icon">ratios</a>
 					</li>
 				</ul>
 			</nav>

@@ -13,7 +13,6 @@ let entity = brain.makeEntity({
 
 let inputLobe = brain.lobeMakeSized('input', { x: 1, y: 2 }, { x: 3, y: 3 })
 let yesLobe = brain.lobeMakeSized('yes', { x: 0, y: 5 }, { x: 2, y: 3 })
-
 let yayLobe = brain.lobeMakeSized('yay', { x: 8, y: 2 }, { x: 1, y: 4 })
 
 let dendrites = new nbrained.Common.DendriteMesh(25, 8)

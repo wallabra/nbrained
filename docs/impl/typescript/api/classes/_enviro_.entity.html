@@ -111,12 +111,21 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#cloneinto" class="tsd-kind-icon">clone<wbr>Into</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#lobeadd" class="tsd-kind-icon">lobe<wbr>Add</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#lobeget" class="tsd-kind-icon">lobe<wbr>Get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#resetscore" class="tsd-kind-icon">reset<wbr>Score</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#reward" class="tsd-kind-icon">reward</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#set" class="tsd-kind-icon">set</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#setcallbacks" class="tsd-kind-icon">set<wbr>Callbacks</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enviro_.entity.html#tick" class="tsd-kind-icon">tick</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-static"><a href="_enviro_.entity.html#noop" class="tsd-kind-icon">noop</a></li>
 							</ul>
 						</section>
 					</div>
@@ -130,7 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">Initializer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L58">enviro.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L75">enviro.ts:75</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -156,22 +165,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>callbacks<span class="tsd-signature-symbol">: </span><a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a>, brain<span class="tsd-signature-symbol">: </span><a href="_enviro_.brain.html" class="tsd-signature-type">Brain</a>, neurons<span class="tsd-signature-symbol">?: </span><a href="_common_.neuronboard.html" class="tsd-signature-type">NeuronBoard</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_enviro_.entity.html" class="tsd-signature-type">Entity</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>brain<span class="tsd-signature-symbol">: </span><a href="_enviro_.brain.html" class="tsd-signature-type">Brain</a>, callbacks<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a>, neurons<span class="tsd-signature-symbol">?: </span><a href="_common_.neuronboard.html" class="tsd-signature-type">NeuronBoard</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_enviro_.entity.html" class="tsd-signature-type">Entity</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L8">enviro.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L8">enviro.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>callbacks: <a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a></h5>
+									<h5>brain: <a href="_enviro_.brain.html" class="tsd-signature-type">Brain</a></h5>
 								</li>
 								<li>
-									<h5>brain: <a href="_enviro_.brain.html" class="tsd-signature-type">Brain</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callbacks: <a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> neurons: <a href="_common_.neuronboard.html" class="tsd-signature-type">NeuronBoard</a></h5>
@@ -190,17 +199,17 @@
 					<div class="tsd-signature tsd-kind-icon">brain<span class="tsd-signature-symbol">:</span> <a href="_enviro_.brain.html" class="tsd-signature-type">Brain</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L11">enviro.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L11">enviro.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="callbacks-1" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> callbacks</h3>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> callbacks</h3>
 					<div class="tsd-signature tsd-kind-icon">callbacks<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L11">enviro.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L11">enviro.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -210,7 +219,7 @@
 					<div class="tsd-signature tsd-kind-icon">neurons<span class="tsd-signature-symbol">:</span> <a href="_common_.neuronboard.html" class="tsd-signature-type">NeuronBoard</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L6">enviro.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L6">enviro.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -220,13 +229,39 @@
 					<div class="tsd-signature tsd-kind-icon">score<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L8">enviro.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L8">enviro.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="cloneinto" class="tsd-anchor"></a>
+					<h3>clone<wbr>Into</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">clone<wbr>Into<span class="tsd-signature-symbol">(</span>brain<span class="tsd-signature-symbol">: </span><a href="_enviro_.brain.html" class="tsd-signature-type">Brain</a>, callbacks<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_enviro_.entity.html" class="tsd-signature-type">Entity</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L20">enviro.ts:20</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>brain: <a href="_enviro_.brain.html" class="tsd-signature-type">Brain</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callbacks: <a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_enviro_.entity.html" class="tsd-signature-type">Entity</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
@@ -237,7 +272,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L44">enviro.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L57">enviro.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -263,7 +298,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L35">enviro.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L48">enviro.ts:48</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -292,7 +327,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L28">enviro.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L41">enviro.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -309,6 +344,23 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="resetscore" class="tsd-anchor"></a>
+					<h3>reset<wbr>Score</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">reset<wbr>Score<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L29">enviro.ts:29</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="reward" class="tsd-anchor"></a>
 					<h3>reward</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -318,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L15">enviro.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L24">enviro.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -341,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L48">enviro.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L61">enviro.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -361,6 +413,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setcallbacks" class="tsd-anchor"></a>
+					<h3>set<wbr>Callbacks</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Callbacks<span class="tsd-signature-symbol">(</span>callbacks<span class="tsd-signature-symbol">: </span><a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L16">enviro.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callbacks: <a href="../interfaces/_enviro_.entity.callbacks.html" class="tsd-signature-type">Callbacks</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="tick" class="tsd-anchor"></a>
 					<h3>tick</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -370,7 +445,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/39a4d49/impl/typescript/v1/src/enviro.ts#L20">enviro.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L33">enviro.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -393,6 +468,36 @@
 					</ul>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+					<a name="noop" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> noop</h3>
+					<div class="tsd-signature tsd-kind-icon">noop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L67">enviro.ts:67</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+						<a name="noop.tick-1" class="tsd-anchor"></a>
+						<h3>tick</h3>
+						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon">tick<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						</ul>
+						<ul class="tsd-descriptions">
+							<li class="tsd-description">
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/Gustavo6046/nbrained/blob/28389bd/impl/typescript/v1/src/enviro.ts#L68">enviro.ts:68</a></li>
+									</ul>
+								</aside>
+								<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							</li>
+						</ul>
+					</section>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
@@ -405,6 +510,9 @@
 					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_enviro_.html">&quot;enviro&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_evolve_.html">&quot;evolve&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_genetics_.html">&quot;genetics&quot;</a>
@@ -446,6 +554,9 @@
 								<a href="_enviro_.entity.html#score" class="tsd-kind-icon">score</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_enviro_.entity.html#cloneinto" class="tsd-kind-icon">clone<wbr>Into</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_enviro_.entity.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -455,13 +566,22 @@
 								<a href="_enviro_.entity.html#lobeget" class="tsd-kind-icon">lobe<wbr>Get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_enviro_.entity.html#resetscore" class="tsd-kind-icon">reset<wbr>Score</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_enviro_.entity.html#reward" class="tsd-kind-icon">reward</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_enviro_.entity.html#set" class="tsd-kind-icon">set</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_enviro_.entity.html#setcallbacks" class="tsd-kind-icon">set<wbr>Callbacks</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_enviro_.entity.html#tick" class="tsd-kind-icon">tick</a>
+							</li>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+								<a href="_enviro_.entity.html#noop" class="tsd-kind-icon">noop</a>
 							</li>
 						</ul>
 					</li>

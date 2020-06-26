@@ -1,13 +1,37 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DendriteMesh = exports.Random = exports.Dendrite = exports.CoordXY = exports.NeuronBoard = void 0;
-const Genetics = require("./genetics");
+const Genetics = __importStar(require("./genetics"));
 class NeuronBoard {
     constructor(width, height) {
         this.width = width;
         this.height = height;
         let area = this.area = width * height;
         this.neurons = [];
+    }
+    clone() {
+        let res = new NeuronBoard(this.width, this.height);
+        res.neurons.push.apply(res.neurons, this.neurons);
+        return res;
     }
     index(x, y) {
         return y * this.width + x;
@@ -80,6 +104,10 @@ class NeuronBoard {
 exports.NeuronBoard = NeuronBoard;
 var CoordXY;
 (function (CoordXY) {
+    function is(obj) {
+        return !!(obj.x && obj.y);
+    }
+    CoordXY.is = is;
     function clamp(compat, coords) {
         if (coords.x < 0)
             coords.x = 0;
@@ -167,23 +195,48 @@ class DendriteMesh {
         this.minWidth = minWidth;
         this.minHeight = minHeight;
         this.dendrites = new Map();
-        this.origin = null;
+        this.origin = [];
     }
-    derive() {
+    static breed(a, b) {
+        let res = new DendriteMesh(Math.max(a.minWidth, b.minWidth), Math.max(a.minHeight, b.minHeight));
+        let genes = [].concat((a.origin || []), (b.origin || []));
+        if (genes.length)
+            res.mutate(genes, false, false);
+        return res;
+    }
+    clone() {
         let res = new DendriteMesh(this.minWidth, this.minHeight);
-        if (!this.origin)
-            res.origin = { from: this, genes: [] };
-        else
-            res.origin = { from: this.origin.from, genes: Array.from(this.origin.genes) };
+        res.origin = Array.from(this.origin);
         this.dendrites.forEach((dend, key) => {
             res.dendrites.set(key, dend.clone());
         });
         return res;
     }
-    mutate(genes) {
-        let res = this.derive();
+    mutateRandom(numGenes, clone = false) {
+        let res;
+        if (clone)
+            res = this.clone();
+        else
+            res = this;
+        for (let i = 0; i < numGenes; i++) {
+            let gene = Genetics.random(res);
+            if (Genetics.apply(gene, res))
+                res.origin.push(gene);
+            else
+                throw new Error(`Dendrite mesh incompatible with random <${gene.type}> gene #${i}`);
+        }
+        return res;
+    }
+    mutate(genes, clone = false, doThrow = true) {
+        let res;
+        if (clone)
+            res = this.clone();
+        else
+            res = this;
         genes.forEach((gene, ind) => {
-            if (!Genetics.apply(gene, res))
+            if (Genetics.apply(gene, res))
+                res.origin.push(gene);
+            else if (doThrow)
                 throw new Error(`Dendrite mesh incompatible with <${gene.type}> gene in index #${ind} of list passed to DendriteSet.mutate`);
         });
         return res;
@@ -217,9 +270,16 @@ class DendriteMesh {
             coords.y = this.minHeight - 1;
         return coords;
     }
-    compute(neurons, power) {
+    assertFitNeurons(neurons) {
         if (neurons.width < this.minWidth || neurons.height < this.minHeight)
             throw new Error(`Neuron board passed too small for this dendrite mesh, in at least one dimension; expected at least ${this.minWidth}x${this.minHeight}, got ${neurons.width}x${neurons.height}`);
+    }
+    assertFitBrain(brain) {
+        if (brain.size.x < this.minWidth || brain.size.y < this.minHeight)
+            throw new Error(`Brain passed too small for dendrite mesh, in at least one dimension; expected at least ${this.minWidth}x${this.minHeight}, got ${brain.size.x}x${brain.size.y}`);
+    }
+    compute(neurons, power) {
+        this.assertFitNeurons(neurons);
         let changes = new ChangeBuffer();
         this.dendrites.forEach((dend) => {
             dend.compute(neurons, changes, power);

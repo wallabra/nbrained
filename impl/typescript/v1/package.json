@@ -7,6 +7,7 @@
   "author": "Gustavo Rehermann (Gustavo6046) <rehermann6046@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash": "^4.14.157",
     "babelify": "^10.0.0",
     "browserify": "^16.5.1",
     "gulp": "^4.0.2",
@@ -14,5 +15,8 @@
     "typedoc": "^0.17.7",
     "typescript": "^3.9.5",
     "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
   }
 }

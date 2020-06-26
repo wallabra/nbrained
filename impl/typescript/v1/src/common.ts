@@ -1,4 +1,5 @@
 import * as Genetics from './genetics';
+import { Brain } from './enviro';
 
 
 
@@ -9,6 +10,13 @@ export class NeuronBoard {
     constructor(public width: number, public height: number) {
         let area = this.area = width * height;
         this.neurons = [];
+    }
+
+    clone(): NeuronBoard {
+        let res = new NeuronBoard(this.width, this.height);
+        res.neurons.push.apply(res.neurons, this.neurons);
+        
+        return res;
     }
 
     index(x: number, y: number) {
@@ -107,6 +115,10 @@ export interface CoordXY {
 }
 
 export namespace CoordXY {
+    export function is(obj: any): obj is CoordXY {
+        return !!(obj.x && obj.y);
+    }
+
     export function clamp(compat: CoordXY, coords: CoordXY) {
         if (coords.x < 0) coords.x = 0;
         if (coords.y < 0) coords.y = 0;
@@ -202,20 +214,24 @@ export namespace Random {
 
 export class DendriteMesh {
     public dendrites: Map<string, Dendrite> = new Map();
-    public origin?: DendriteMesh.Origin = null;
+    public origin: DendriteMesh.Origin = [];
+
+    static breed(a: DendriteMesh, b: DendriteMesh): DendriteMesh {
+        let res = new DendriteMesh(Math.max(a.minWidth, b.minWidth), Math.max(a.minHeight, b.minHeight));
+
+        let genes = [].concat((a.origin || []), (b.origin || []));
+
+        if (genes.length) res.mutate(genes, false, false);
+        return res;
+    }
 
     constructor(public minWidth: number, public minHeight: number) {
         // property initializing constructor
     }
 
-    derive() {
+    clone() {
         let res = new DendriteMesh(this.minWidth, this.minHeight);
-
-        if (!this.origin)
-            res.origin = { from: this, genes: [] };
-        
-        else
-            res.origin = { from: this.origin.from, genes: Array.from(this.origin.genes) };
+        res.origin = Array.from(this.origin);
 
         this.dendrites.forEach((dend, key) => {
             res.dendrites.set(key, dend.clone());
@@ -224,11 +240,42 @@ export class DendriteMesh {
         return res;
     }
 
-    mutate(genes: Genetics.Gene[]): DendriteMesh {
-        let res = this.derive();
+    mutateRandom(numGenes: number, clone: boolean = false): DendriteMesh {
+        let res: DendriteMesh;
+
+        if (clone)
+            res = this.clone();
+
+        else
+            res = this;
+
+        for (let i = 0; i < numGenes; i++) {
+            let gene = Genetics.random(res);
+
+            if (Genetics.apply(gene, res))
+                res.origin.push(gene);
+
+            else
+                throw new Error(`Dendrite mesh incompatible with random <${gene.type}> gene #${i}`);
+        }
+            
+        return res;
+    }
+
+    mutate(genes: Genetics.Gene[], clone: boolean = false, doThrow: boolean = true): DendriteMesh {
+        let res: DendriteMesh;
+
+        if (clone)
+            res = this.clone();
+
+        else
+            res = this;
 
         genes.forEach((gene, ind) => {
-            if (!Genetics.apply(gene, res))
+            if (Genetics.apply(gene, res))
+                res.origin.push(gene);
+
+            else if (doThrow)
                 throw new Error(`Dendrite mesh incompatible with <${gene.type}> gene in index #${ind} of list passed to DendriteSet.mutate`);
         });
             
@@ -269,9 +316,18 @@ export class DendriteMesh {
         return coords;
     }
 
-    compute(neurons: NeuronBoard, power: number) {
+    assertFitNeurons(neurons: NeuronBoard) {
         if (neurons.width < this.minWidth || neurons.height < this.minHeight)
             throw new Error(`Neuron board passed too small for this dendrite mesh, in at least one dimension; expected at least ${this.minWidth}x${this.minHeight}, got ${neurons.width}x${neurons.height}`);
+    }
+
+    assertFitBrain(brain: Brain) {
+        if (brain.size.x < this.minWidth || brain.size.y < this.minHeight)
+            throw new Error(`Brain passed too small for dendrite mesh, in at least one dimension; expected at least ${this.minWidth}x${this.minHeight}, got ${brain.size.x}x${brain.size.y}`);
+    }
+
+    compute(neurons: NeuronBoard, power: number) {
+        this.assertFitNeurons(neurons);
 
         let changes = new ChangeBuffer();
 
@@ -284,8 +340,5 @@ export class DendriteMesh {
 }
 
 export namespace DendriteMesh {
-    export interface Origin {
-        from: DendriteMesh,
-        genes: Genetics.Gene[]
-    }
+    export type Origin = Genetics.Gene[];
 }
