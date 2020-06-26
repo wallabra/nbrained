@@ -219,9 +219,9 @@ export class DendriteMesh {
     static breed(a: DendriteMesh, b: DendriteMesh): DendriteMesh {
         let res = new DendriteMesh(Math.max(a.minWidth, b.minWidth), Math.max(a.minHeight, b.minHeight));
 
-        let genes = [].concat((a.origin || []), (b.origin || []));
+        let genes = Array.from(a.origin || []).concat(b.origin || []);
 
-        if (genes.length) res.mutate(genes, false, false);
+        if (genes.length) res.mutate(genes, false);
         return res;
     }
 
@@ -276,7 +276,7 @@ export class DendriteMesh {
                 res.origin.push(gene);
 
             else if (doThrow)
-                throw new Error(`Dendrite mesh incompatible with <${gene.type}> gene in index #${ind} of list passed to DendriteSet.mutate`);
+                throw new Error(`Dendrite mesh incompatible with <${gene.type}> gene in index #${ind + 1} of list passed to DendriteSet.mutate`);
         });
             
         return res;
