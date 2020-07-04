@@ -23,9 +23,7 @@ It is a very simple proof-of-concept. A Brain consists of three items:
 It also has a change map, which we are about to see.
 
 A 'tick' here can correspond to either an unit of a broader simulation's
-time, or several such units (for example, more desirable for most games,
-except perhaps kung fu. To be fair, Lo Wang is more god than man, and
-even a real-time AI would have no )
+time; or several such units, as perhaps more suitable for most games.
 
 ### 
 
